@@ -40,6 +40,9 @@ inputs:
   appstore-connect-api-key:
     description: 'The AppStore Connect API Key.'
     required: false
+  appstore-connect-api-key-id:
+    description: 'The AppStore Connect API Key ID.'
+    required: false
   appstore-connect-api-issuer:
     description: 'The AppStore Connect API Issuer.'
     required: false

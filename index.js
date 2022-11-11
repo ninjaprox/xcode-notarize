@@ -34,8 +34,11 @@ const sleep = (ms) => {
 const parseConfiguration = () => {
     const configuration = {
         productPath: core.getInput("product-path", {required: true}),
-        username: core.getInput("appstore-connect-username", {required: true}),
-        password: core.getInput("appstore-connect-password", {required: true}),
+        username: core.getInput("appstore-connect-username"),
+        password: core.getInput("appstore-connect-password"),
+        ascAPIKey: core.getInput("appstore-connect-api-key", {require: true}),
+        ascAPIKeyID: core.getInput("appstore-connect-api-key-id", {require: true}),
+        ascAPIIssuer: core.getInput("appstore-connect-api-issuer", {require: true}),
         primaryBundleId: core.getInput("primary-bundle-id"),
         verbose: core.getInput("verbose") === "true",
     };
@@ -43,9 +46,17 @@ const parseConfiguration = () => {
     if (!fs.existsSync(configuration.productPath)) {
         throw Error(`Product path ${configuration.productPath} does not exist.`);
     }
+    writeAppStoreConnectAPIKey(configuration)
 
     return configuration
 };
+
+
+const writeAppStoreConnectAPIKey = (configuration) => {
+    const path = './appstore-connect-api-key';
+
+    fs.writeFileSync(path, configuration.ascAPIKey)
+}
 
 
 const archive = async ({productPath}) => {
