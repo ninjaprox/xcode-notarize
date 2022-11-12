@@ -54,7 +54,7 @@ inputs:
   verbose:
     description: "Verbose mode will print Notarization API responses."
     required: false
-    default: 'true'
+    default: 'false'
 
 outputs:
   product-path:

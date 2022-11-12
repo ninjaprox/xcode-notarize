@@ -105,7 +105,14 @@ const submit = async ({productPath, archivePath, verbose, ascAPIKeyID, ascAPIIss
         xcrun.stderr.pipe(process.stderr);
     }
 
-    await xcrun;
+    const { exitCode, stdout, stderr } = await xcrun;
+
+    if (exitCode === 0) {
+        core.info(stdout)
+    } else {
+        core.error(`${stdout}\n${stderr}`)
+        throw Error(`${stdout}\n${stderr}`)
+    }
 };
 
 const main = async () => {
